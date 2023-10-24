@@ -24,7 +24,7 @@ accueil.appendChild(select3);
 
 let tab_result = [];
 let tab_years = [];
-let tab_zones = ['Zone A', 'Zone B', 'Zone C', 'Guadeloupe', 'Martinique', 'Guyane'];
+let tab_zones = ['Zone A', 'Zone B', 'Zone C', 'Corse', 'Guadeloupe', 'Martinique', 'Guyane'];
 let val_description = "";
 
 function modifStr(str) {
@@ -84,7 +84,7 @@ select2.addEventListener('change', (e) => {
     .then(data => {
         for (let i = 0; i < data.results.length; i++) {
             val_description = modifStr(data.results[i].description);
-            select3.innerHTML += `<option class='text-center' id=${val_description} value=${val_description} data-bs-toggle="modal" data-bs-target="#exampleModal">${data.results[i].description}</option>`;
+            select3.innerHTML += `<option class='text-center' id=${val_description} value=${val_description}>${data.results[i].description}</option>`;
         }
     })
 })
@@ -103,11 +103,13 @@ select3.addEventListener('change', (e) => {
         for (let i = 0; i < data.results.length; i++) {
             date_deb = data.results[i].start_date.substring(0, 10);
             date_fin = data.results[i].end_date.substring(0, 10);
-            date_deb = format_date(date_deb);
-            date_fin = format_date(date_fin);
-            affiche.innerHTML += `<h6 class='text-success text-center'>Date début: <span class='text-white'>${date_deb}</span></h6>`;
-            affiche.innerHTML += `<h6 class='text-success text-center'>Date fin: <span class='text-white'>${date_fin}</span></h6>`;
-        
+            if (date_deb && date_fin) {
+                date_deb = format_date(date_deb);
+                date_fin = format_date(date_fin);
+                affiche.innerHTML += `<h6 class='text-success text-center'>Date début: <span class='text-white'>${date_deb}</span></h6>`;
+                affiche.innerHTML += `<h6 class='text-success text-center'>Date fin: <span class='text-white'>${date_fin}</span></h6>`;                
+            }
+            else affiche.innerHTML += `<h6 class='text-danger text-center'>Données indisponibles</h6>`;
         }
         affiche.style.display = 'block';
         accueil.appendChild(affiche);
