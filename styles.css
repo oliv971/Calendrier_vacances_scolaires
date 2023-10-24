@@ -1,3 +1,7 @@
+body {
+    height: 250px;
+}
+
 #accueil {
     width: 30%;
     margin: auto;
