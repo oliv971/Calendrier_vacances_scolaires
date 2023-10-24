@@ -1,0 +1,18 @@
+#accueil {
+    width: 30%;
+    margin: auto;
+    border: solid 1px;
+}
+
+.select-tab, #affiche {
+    width: 60%;
+    margin: auto;
+}
+
+/* PARTIE RESPONSIVE */
+
+@media screen and (max-width: 768px) {
+    #accueil {
+        width: 100%;
+    }
+}
