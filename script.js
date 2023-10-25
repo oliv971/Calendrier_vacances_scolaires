@@ -16,7 +16,7 @@ select3.innerHTML = `<option class='text-center'>--Sélectionnez une période--<
 let affiche = document.createElement('div');
 affiche.id = 'affiche';
 
-// let modal_body = document.querySelector(".modal-body");
+let modal_body = document.querySelector(".modal-body");
 
 accueil.appendChild(select);
 accueil.appendChild(select2);
@@ -26,6 +26,42 @@ let tab_result = [];
 let tab_years = [];
 let tab_zones = ['Zone A', 'Zone B', 'Zone C', 'Corse', 'Guadeloupe', 'Martinique', 'Guyane'];
 let val_description = "";
+let val_desc = "";
+
+for (let i = 0; i < tab_zones.length; i++) {
+    
+    fetch(`https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records?select=*&where=zones%20like%20%22${tab_zones[i]}%22%20and%20start_date%20%3E%20now()&order_by=start_date%20asc&limit=1`)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        for (let i = 0; i < data.results.length; i++) {
+
+            val_zone = data.results[i].zones;
+            val_desc = data.results[i].description;
+            val_date_deb = data.results[i].start_date.substring(0, 10);
+            val_date_fin = data.results[i].end_date.substring(0, 10);
+            val_date_deb = format_date(val_date_deb);
+            val_date_fin = format_date(val_date_fin);
+
+            modal_body.innerHTML += `<h6 id=${val_zone}><strong>${val_desc}:</strong> Du ${val_date_deb} Au ${val_date_fin} <strong>(${val_zone})</strong></h6>`;
+        }
+    })
+}
+
+
+/********************************** */
+/* Affichage du modal
+/********************************** */
+$(window).on('load',function(){
+    var delayMs = 1000; // delay in milliseconds
+    
+    setTimeout(function(){
+        $('#exampleModal').modal('show');
+    }, delayMs);
+});
+
+/* ********************************* */
 
 function modifStr(str) {
     if (str.match(/_/g)) {
