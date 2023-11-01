@@ -67,7 +67,7 @@ for (let i = 0; i < tab_zones.length; i++) {
 
 let newStr:string = "";
 
-function modifStr(str:string) {
+function modifStr(str:string):string {
     if (str.match(/_/g)) {
         newStr = str.substring(0, str.length).split('_').join(' ');
     }
@@ -79,7 +79,7 @@ function modifStr(str:string) {
     return newStr;
 }
 
-function format_date(date:string) {
+function format_date(date:string):string {
 
     let newDate = new Date(date);
     let newFormat = newDate.toLocaleDateString('fr');
