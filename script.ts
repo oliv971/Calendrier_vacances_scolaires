@@ -47,6 +47,7 @@ for (let i = 0; i < tab_zones.length; i++) {
     
     fetch(`https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records?select=*&where=zones%20like%20%22${tab_zones[i]}%22%20and%20start_date%20%3E%20now()&order_by=start_date%20asc&limit=1`)
     .then(response => {
+        
         return response.json();
     })
     .then(data => {
